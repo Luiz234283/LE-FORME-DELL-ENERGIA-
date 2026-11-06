@@ -100,7 +100,7 @@
 
         <p>L'<strong>energia eolica</strong> è una delle fonti rinnovabili più antiche (pensa ai mulini a vento), ma oggi è sfruttata tramite moderne turbine, chiamate aerogeneratori, che possono essere installate sulla terraferma (on-shore) o in mare (off-shore).</p>
 
-        <!-- Immagine Schema Eolica -->
+        <!-- Immagine Schema Eolica (usa Eolico.jpg come da repository) -->
         <div class="image-container">
             <img src="Eolico.jpg" alt="Schema di un aerogeneratore e dei componenti principali">
             <p style="margin-top: 10px; font-style: italic; color: #555; font-size: 0.95rem;">Schema didattico: il vento aziona le pale e il generatore trasforma il movimento in elettricità.</p>
@@ -122,35 +122,29 @@
 
         <p>L'elettricità prodotta viene poi inviata tramite cavi alla base della torre, trasformata e immessa nella rete elettrica nazionale per essere distribuita.</p>
 
-
-
-        <!-- Sezione Audio di Sottofondo Eolico -->
+        <!-- Sezione Audio di Sottofondo Eolico (collegato a eolica-audio.mp3) -->
         <div style="background-color: #f1f8e9; border: 2px dashed #4caf50; padding: 15px; margin: 25px auto; border-radius: 10px; text-align: center; max-width: 600px;">
             <h4 style="color: #33691e; margin-bottom: 8px;">Ambiente Sonoro: Il Suono del Vento</h4>
             <p style="font-size: 0.95rem; margin-bottom: 10px; color: #555;">Sottofondo naturale modulato della brezza marina notturna.</p>
             
-            <audio id="eolica-audio" controls loop autoplay style="width: 100%;">
-                <source src="eolica-sound.mp3" type="audio/mpeg">
+            <audio id="eolica-audio" controls loop autoplay muted style="width: 100%;">
+                <source src="eolica-audio.mp3" type="audio/mpeg">
                 Il tuo browser non supporta l'elemento audio.
             </audio>
+            <p style="font-size: 0.85rem; color: #2e7d32; margin-top: 5px;">(L'audio si avvia in automatico: usa il cursore del volume per alzarlo)</p>
         </div>
 
         <script>
-            // Gestione autoplay e arresto alla navigazione
+            // Gestione sblocco audio e stop alla chiusura
             window.addEventListener('DOMContentLoaded', () => {
                 const audio = document.getElementById('eolica-audio');
                 
-                // Tenta la riproduzione automatica all'ingresso
-                const playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(() => {
-                        // Se il browser blocca l'autoplay con audio attivo, 
-                        // avvia al primo click dell'utente sulla pagina
-                        document.body.addEventListener('click', () => {
-                            audio.play();
-                        }, { once: true });
-                    });
-                }
+                // Al primo click dell'utente sulla pagina, attiva l'audio rimuovendo il muto
+                document.body.addEventListener('click', () => {
+                    if (audio.muted) {
+                        audio.muted = false;
+                    }
+                }, { once: true });
             });
 
             // Spegne l'audio quando l'utente lascia la pagina
@@ -163,7 +157,6 @@
             });
         </script>
 
-        
         <a href="rinnovabili.html" class="back-link">← Torna alle Fonti Rinnovabili</a>
     </div>
 
